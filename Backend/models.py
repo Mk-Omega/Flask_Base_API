@@ -11,13 +11,15 @@ class User(db.Model):
     __tablename__ = 'users'
 
     id = db.Column(db.Integer(), primary_key=True)
+    api_key = db.Column(db.String())
     username = db.Column(db.String(), unique=True)
     firstname = db.Column(db.String())
     lastname = db.Column(db.String())
     password = db.Column(db.String())
     email = db.Column(db.String())
 
-    def __init__(self, firstname, lastname, email, password, username):
+    def __init__(self, api_key, firstname, lastname, email, password, username):
+        self.api_key = api_key
         self.firstname = firstname
         self.lastname = lastname
         self.email = email
@@ -30,6 +32,7 @@ class User(db.Model):
     def serialize(self):
         return {
             'id' : self.id,
+            'api_key' : self.api_key,
             'username' : self.username,
             'firstname' : self.firstname,
             'lastname' : self.lastname,
